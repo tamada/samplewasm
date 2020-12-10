@@ -2,7 +2,7 @@
 
 const availableUrl = (urlString) => {
     try {
-        new URL(url)
+        new URL(urlString)
         return true
     } catch (e) {
         return false
@@ -11,7 +11,7 @@ const availableUrl = (urlString) => {
 
 const initGo = () => {
     const go = new Go()
-    WebAssembly.instantiateStreaming(fetch("../wasm/purplecat.wasm"), go.importObject)
+    WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject)
         .then((result) => {
             go.run(result.instance);
         });
@@ -27,15 +27,12 @@ const initListeners = () => {
     clear.addEventListener('click', (e) => {
         text.value = ""
         button.disabled = true
+        const area = document.getElementById('app')
+        area.innerText = ""
     })
     button.disabled = true
     text.addEventListener('input', (e) => {
         button.disabled = !availableUrl(text.value)
-    })
-    text.addEventListener('change', (e) => {
-        if (availableUrl(text.value)) {
-            wasmCallback(text.value)
-        }
     })
 }
 
