@@ -1,4 +1,3 @@
-module github.com/tamada/wasm
+module github.com/tamada/samplewasm
 
 go 1.15
-
